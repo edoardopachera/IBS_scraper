@@ -1,4 +1,5 @@
 from bs4 import BeautifulSoup
+import wikipedia
 import builtins
 import time 
 
@@ -72,3 +73,20 @@ def consigliati_scraper():
 
     price = soup.find("h2",{"data-aid":"pdp_price_current-price"}).text.strip()
     builtins.price = price
+
+    wikipedia.set_lang("it")
+    try:
+        about_the_author = wikipedia.summary(autore_libro_scelto, sentences = 1)
+    except:
+        about_the_author = "Non sono presenti info su questo autore :("
+    print("\n")
+    print(color.BOLD +"Ecco maggiori info:"+ color.END)
+    print("\n")
+    print((color.DARKCYAN+color.BOLD +"AUTORE:  "+color.END)+autore_libro_scelto.upper())
+    print(about_the_author)
+    print("\n")
+    print((color.DARKCYAN+color.BOLD +"PREZZO:  "+color.END)+price)
+    print("\n")
+    print((color.DARKCYAN+color.BOLD +"TRAMA:  "+color.END)+plot_libro_scelto)
+    time.sleep(3)
+    print("\n")

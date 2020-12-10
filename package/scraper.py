@@ -2,6 +2,19 @@ from bs4 import BeautifulSoup
 import builtins
 import time 
 
+
+class color:
+   PURPLE = '\033[95m'
+   CYAN = '\033[96m'
+   DARKCYAN = '\033[36m'
+   BLUE = '\033[94m'
+   GREEN = '\033[92m'
+   YELLOW = '\033[93m'
+   RED = '\033[91m'
+   BOLD = '\033[1m'
+   UNDERLINE = '\033[4m'
+   END = '\033[0m'
+   
 def navigate_to_soup(link):
     browser = builtins.browser
     browser.get(link)
@@ -12,6 +25,8 @@ def navigate_to_soup(link):
 
 def consigliati_scraper():
     global book_dict
+    global scelta
+    global price
     navigate_to_soup('https://www.ibs.it/libri-consigliati-da-leggere')
     main = soup.find("div", {"class": "modulo-ctn mdl-listaprodotti padding-sp padding-top"})
     sections = main.findAll("div",{"class":"box-body"})
@@ -32,3 +47,28 @@ def consigliati_scraper():
         index += 1
     print("\n")
     builtins.book_dict = book_dict
+    while True:
+        print(color.BOLD +"Di quale libro vuoi avere più informazioni? (Inserire numero)"+ color.END)
+        scelta = input()
+        try:
+            scelta = int(scelta)
+            if isinstance(scelta, int) == True and scelta in range(1,index):
+                builtins.scelta = scelta
+                break
+            else:
+                print("\n")
+                print(color.BOLD + color.RED+"Hai inserito un valore errato, prova di nuovo!"+color.END)
+        except ValueError:
+            print("\n")
+            print(color.BOLD + color.RED+"Hai inserito un valore errato, prova di nuovo!"+color.END)
+    libro_scelto = book_dict.get(scelta,None)
+    autore_libro_scelto = libro_scelto[0]
+    nome_libro_scelto = libro_scelto[1]
+    link_libro_scelto = libro_scelto[3]
+    plot_libro_scelto = libro_scelto[2]
+    print("\n")
+    print("Hai scelto: " +(color.PURPLE + color.BOLD +'"'+ color.END)+(color.PURPLE + color.BOLD +"%s"+ color.END) % (nome_libro_scelto)+(color.PURPLE + color.BOLD +'"'+ color.END) )
+    navigate_to_soup(link_libro_scelto)
+
+    price = soup.find("h2",{"data-aid":"pdp_price_current-price"}).text.strip()
+    builtins.price = price

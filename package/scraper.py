@@ -128,3 +128,46 @@ def classifica_scraper():
             print(str(index)+". "+book_name+"  ("+author+")")
             index += 1
         builtins.book_dict = book_dict
+
+        print("\n")
+        while True:
+            print(color.BOLD +"Di quale libro vuoi avere più informazioni? (Inserire numero)"+ color.END)
+            scelta = input()
+            try:
+                scelta = int(scelta)
+                if isinstance(scelta, int) == True and scelta in range(1,index):
+                    builtins.scelta = scelta
+                    break
+                else:
+                    print("\n")
+                    print(color.BOLD + color.RED+"Hai inserito un valore errato, prova di nuovo!"+color.END)
+            except ValueError:
+                print("\n")
+                print(color.BOLD + color.RED+"Hai inserito un valore errato, prova di nuovo!"+color.END)
+        libro_scelto = book_dict.get(scelta,None)
+        libro_scelto = book_dict.get(scelta,None)
+        autore_libro_scelto = libro_scelto[0]
+        nome_libro_scelto = libro_scelto[1]
+        link_libro_scelto = libro_scelto[3]
+        plot_libro_scelto = libro_scelto[2]
+        price_libro_scelto = libro_scelto[4]
+        builtins.price = price_libro_scelto
+        print("\n")
+        print("Hai scelto: " +(color.PURPLE + color.BOLD +'"'+ color.END)+(color.PURPLE + color.BOLD +"%s"+ color.END) % (nome_libro_scelto)+(color.PURPLE + color.BOLD +'"'+ color.END) )
+
+        wikipedia.set_lang("it")
+        try:
+            about_the_author = wikipedia.summary(autore_libro_scelto, sentences = 1)
+        except:
+            about_the_author = "Non sono presenti info su questo autore :("
+        print("\n")
+        print(color.BOLD +"Ecco maggiori info:"+ color.END)
+        print("\n")
+        print((color.DARKCYAN+color.BOLD +"AUTORE:  "+color.END)+autore_libro_scelto.upper())
+        print(about_the_author)
+        print("\n")
+        print((color.DARKCYAN+color.BOLD +"PREZZO:  "+color.END)+price_libro_scelto)
+        print("\n")
+        print((color.DARKCYAN+color.BOLD +"TRAMA:  "+color.END)+plot_libro_scelto)
+        time.sleep(3)
+        print("\n")

@@ -171,3 +171,23 @@ def classifica_scraper():
         print((color.DARKCYAN+color.BOLD +"TRAMA:  "+color.END)+plot_libro_scelto)
         time.sleep(3)
         print("\n")
+
+def recursive():
+    global y
+    y = 1
+    while True:
+        print(color.BOLD+"Vuoi avere info su altri libri? [si/no]"+color.END)
+        scelta = str(input())
+        if scelta in ["sì", "si", "Si", "SI"]:
+            y = 1
+            print("\n")
+            break
+        elif scelta in ["no","No","NO"]:
+            print("\n")
+            print(color.BOLD+"Va bene, Arrivederci!"+color.END)
+            y = 2
+            break
+        else:
+            print("\n")
+            print(color.RED+color.BOLD+"L'argomento che hai inserito è errato, prova di nuovo!"+color.END)
+    builtins.y = y

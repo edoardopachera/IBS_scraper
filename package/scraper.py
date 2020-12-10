@@ -90,3 +90,41 @@ def consigliati_scraper():
     print((color.DARKCYAN+color.BOLD +"TRAMA:  "+color.END)+plot_libro_scelto)
     time.sleep(3)
     print("\n")
+
+def classifica_scraper():
+    global book_dict
+    global scelta
+
+    navigate_to_soup('https://www.ibs.it/classifica/libri/1week/sold?defaultPage=1')
+    main = soup.find("div",{"class":"col-lg-25 col-md-25 col-sm-25 col-xs-25 gridContainer"})
+    sections = main.findAll("li",{"class":"col-lg-5 col-md-5 col-sm-25 col-xs-25"})
+    try:
+        if book_dict != {}:
+            for i in book_dict:
+                print(str(i)+". "+((book_dict[i])[1])+"  ("+((book_dict[i])[0])+")")
+    except NameError:
+        book_dict = {}
+        index = 1
+        print("\n")
+        print(color.BOLD +"Ecco qui i libri in classifica questa settimana:"+ color.END)
+        for section in sections:
+            book_link_container = section.find("div",{"class":"rankProductTitle"}).text.strip()
+            link = ("https://www.ibs.it"+section.a['href'])
+            navigate_to_soup(link)
+            book_name = soup.find("h1",{"class":"title__text"}).text.strip()
+            try:
+                author = soup.find("h2",{"class":"subline__title author__title"}).text.strip()
+            except:
+                author = 'Nessun autore indicato'
+            price = soup.find("h2",{"data-aid":"pdp_price_current-price"}).text.strip()
+            plot_container = soup.find("div",{"class":"abstract__description ibs-show-more"})
+            plot = ''
+            paragraphs = plot_container.div.findAll("p")
+            for p in paragraphs:
+                text = p.text.strip()
+                plot += text
+            book_info = [author, book_name, plot, link, price]
+            book_dict[index] = book_info
+            print(str(index)+". "+book_name+"  ("+author+")")
+            index += 1
+        builtins.book_dict = book_dict

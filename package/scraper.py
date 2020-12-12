@@ -17,6 +17,9 @@ class color:
    END = '\033[0m'
    
 def navigate_to_soup(link):
+    """Uses the selenium browser to navigate to a inputed link.
+    Saves the html into a BeautifulSoup object.
+    """
     browser = builtins.browser
     browser.get(link)
     time.sleep(2)

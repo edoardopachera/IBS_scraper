@@ -222,8 +222,9 @@ def classifica_scraper():
         time.sleep(3)
         print("\n")
 
+
 def recursive():
-    """Returns a numeric status that defines 
+    """Returns a numeric status that defines
     if the user wants to continue with the program.
     """
     global y

@@ -222,18 +222,22 @@ def classifica_scraper():
         time.sleep(3)
         print("\n")
 
-
 def recursive():
+    """Returns a numeric status that defines 
+    if the user wants to continue with the program.
+    """
     global y
     y = 1
     while True:
         print(color.BOLD+"Vuoi avere info su altri libri? [si/no]"+color.END)
         scelta = str(input())
         if scelta in ["sì", "si", "Si", "SI"]:
+            # If the user wants to continue, y = 1
             y = 1
             print("\n")
             break
         elif scelta in ["no", "No", "NO"]:
+            # If the user wants to continue, y = 2
             print("\n")
             print(color.BOLD+"Va bene, Arrivederci!"+color.END)
             y = 2

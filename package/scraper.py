@@ -30,6 +30,9 @@ def navigate_to_soup(link):
 
 
 def consigliati_scraper():
+    """Returns a list with recommended books.
+    Allows the user to get more info about a single book.
+    """
     global book_dict
     global scelta
     global price

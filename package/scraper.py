@@ -37,6 +37,7 @@ def consigliati_scraper():
     global scelta
     global price
     navigate_to_soup('https://www.ibs.it/libri-consigliati-da-leggere')
+    # Search in the html
     main = soup.find(
         "div",
         {"class": "modulo-ctn mdl-listaprodotti padding-sp padding-top"})
@@ -54,11 +55,13 @@ def consigliati_scraper():
         plot = plot_container.p.text.strip()
         link = ("https://www.ibs.it"+section.figure.a['href'])
         book_info = [author, book_name, plot, link]
+        # Save the collected info into a dictionary
         book_dict[index] = book_info
         print(str(index)+". "+book_name+"  ("+author+")")
         index += 1
     print("\n")
     builtins.book_dict = book_dict
+    # Whitelist correct inputs
     while True:
         print(color.BOLD
               + "Di quale libro vuoi avere più informazioni? (Inserire numero)"
@@ -93,7 +96,7 @@ def consigliati_scraper():
     price = soup.find(
         "h2", {"data-aid": "pdp_price_current-price"}).text.strip()
     builtins.price = price
-
+    # Use the wikipedia API to get more info about the author
     wikipedia.set_lang("it")
     try:
         about_the_author = wikipedia.summary(autore_libro_scelto, sentences=1)

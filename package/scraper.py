@@ -117,11 +117,15 @@ def consigliati_scraper():
 
 
 def classifica_scraper():
+    """Returns a list of the week best sellers.
+    Allows the user to have more information about a single book.
+    """
     global book_dict
     global scelta
 
     navigate_to_soup(
         'https://www.ibs.it/classifica/libri/1week/sold?defaultPage=1')
+    # Search in the HTML
     main = soup.find(
         "div",
         {"class": "col-lg-25 col-md-25 col-sm-25 col-xs-25 gridContainer"})
@@ -160,12 +164,14 @@ def classifica_scraper():
                 text = p.text.strip()
                 plot += text
             book_info = [author, book_name, plot, link, price]
+            # Save the collected info into a dictionary
             book_dict[index] = book_info
             print(str(index)+". "+book_name+"  ("+author+")")
             index += 1
         builtins.book_dict = book_dict
 
         print("\n")
+        # Whitelist correct inputs
         while True:
             print(
                 color.BOLD +
@@ -201,6 +207,7 @@ def classifica_scraper():
               "%s" + color.END) % (nome_libro_scelto) + (color.PURPLE
               + color.BOLD + '"' + color.END))
 
+        # Use the Wikipedia API to get more info about the author
         wikipedia.set_lang("it")
         try:
             about_the_author = wikipedia.summary(

@@ -18,7 +18,8 @@ class color:
 
 
 def navigate_to_soup(link):
-    """Uses the selenium browser to navigate to a inputed link.
+    """Uses the selenium browser to navigate to an inputed link.
+
     Saves the html into a BeautifulSoup object.
     """
     browser = builtins.browser
@@ -31,6 +32,7 @@ def navigate_to_soup(link):
 
 def consigliati_scraper():
     """Returns a list with recommended books.
+
     Allows the user to get more info about a single book.
     """
     global book_dict
@@ -46,7 +48,7 @@ def consigliati_scraper():
               "Caricamento consigliati in corso..."
               + color.END)
     navigate_to_soup('https://www.ibs.it/libri-consigliati-da-leggere')
-    # Search in the html
+    # Inspect the html
     main = soup.find(
         "div",
         {"class": "modulo-ctn mdl-listaprodotti padding-sp padding-top"})
@@ -56,6 +58,7 @@ def consigliati_scraper():
     print("\n")
     if builtins.args.type == "v":
         print(color.BOLD + "Ecco qui:" + color.END)
+    # Scrape important attributes in each section
     for section in sections:
         book_name = section.find("h5", {"class": "subtitle"}).text.strip()
         author_container = section.find("div", {"class": "box-title-prd"})
@@ -72,15 +75,18 @@ def consigliati_scraper():
     builtins.book_dict = book_dict
     # Whitelist correct inputs
     while True:
+        # If verbose
         if builtins.args.type == "v":
             print(color.BOLD +
                   "Di quale libro vuoi avere più informazioni? (Inserire numero)"
                   + color.END)
+        # If quiet
         if builtins.args.type == "q":
             print(color.BOLD + "Inserire numero libro:" + color.END)
         scelta = input()
         try:
             scelta = int(scelta)
+            # If scelta is an integer between the first and the last book
             if isinstance(scelta, int) is True and scelta in range(1, index):
                 builtins.scelta = scelta
                 break
@@ -102,6 +108,7 @@ def consigliati_scraper():
                       + color.END)
             if builtins.args.type == "q":
                 print(color.BOLD + color.RED+"Prova di nuovo!"+color.END)
+    # Assign info to different variables
     libro_scelto = book_dict.get(scelta, None)
     autore_libro_scelto = libro_scelto[0]
     nome_libro_scelto = libro_scelto[1]
@@ -136,6 +143,7 @@ def consigliati_scraper():
     if builtins.args.type == "v":
         print(color.BOLD + "Ecco maggiori info:" + color.END)
     print("\n")
+    # Display info
     print((color.DARKCYAN+color.BOLD + "AUTORE:  " +
            color.END)+autore_libro_scelto.upper())
     print(about_the_author)
@@ -150,10 +158,12 @@ def consigliati_scraper():
 
 def classifica_scraper():
     """Returns a list of the week best sellers.
+
     Allows the user to have more information about a single book.
     """
     global book_dict
     global scelta
+    # If verbose
     if builtins.args.type == "v":
         print(color.CYAN+color.BOLD +
               "Sto caricando i libri in classifica questa settimana..." +
@@ -161,12 +171,15 @@ def classifica_scraper():
         print(color.BOLD + color.YELLOW +
               "Potrebbero volerci alcuni minuti in base alla tua connessione internet"
               + color.END)
+    # If quiet
     if builtins.args.type == "q":
         print(color.CYAN + color.BOLD +
               "Caricamento classifica in corso..."
               + color.END)
 
     try:
+        # If the book info dictionary is full,
+        # the script is not in the first run
         if builtins.book_dict != {}:
             for i in builtins.book_dict:
                 print(str(i) + ". " +
@@ -174,6 +187,8 @@ def classifica_scraper():
                       "  ("+((builtins.book_dict[i])[0]) +
                       ")")
     except NameError and AttributeError:
+        # If the book info dictionary is empty, the script is in the first run
+        # Start scraping info
         navigate_to_soup('https://www.ibs.it/classifica/libri/1week/sold?defaultPage=1')
         main = soup.find("div",
                          {"class":
@@ -186,6 +201,7 @@ def classifica_scraper():
         print("\n")
         if builtins.args.type == "v":
             print(color.BOLD + "Ecco qui:" + color.END)
+        # Scrape important attributes in each section
         for section in sections:
             book_link_container = section.find(
                 "div", {"class": "rankProductTitle"}).text.strip()
@@ -245,6 +261,7 @@ def classifica_scraper():
                       color.END)
             if builtins.args.type == "q":
                 print(color.BOLD + color.RED + "Prova di nuovo!" + color.END)
+    # Assign a variable for each info
     libro_scelto = book_dict.get(scelta, None)
     libro_scelto = book_dict.get(scelta, None)
     autore_libro_scelto = libro_scelto[0]
@@ -278,6 +295,7 @@ def classifica_scraper():
     if builtins.args.type == "v":
         print(color.BOLD + "Ecco maggiori info:" + color.END)
         print("\n")
+        # Display the book info
         print((color.DARKCYAN+color.BOLD + "AUTORE:  " +
                color.END)+autore_libro_scelto.upper())
         print(about_the_author)
@@ -293,9 +311,7 @@ def classifica_scraper():
 
 
 def recursive():
-    """Returns a numeric status that defines
-    if the user wants to continue with the program.
-    """
+    """Restarts the scraper if the user wants to."""
     global y
     y = 1
     while True:
@@ -308,7 +324,7 @@ def recursive():
             print("\n")
             break
         elif scelta in ["no", "No", "NO"]:
-            # If the user wants to continue, y = 2
+            # If the user does not want to continue, y = 2
             print("\n")
             print(color.BOLD+"Va bene, Arrivederci!"+color.END)
             y = 2

@@ -36,6 +36,11 @@ def consigliati_scraper():
     global book_dict
     global scelta
     global price
+    print("\n")
+    if builtins.args.type == "v":
+        print(color.CYAN+color.BOLD +"Sto caricando i libri consigliati della settimana..."+ color.END)
+    if builtins.args.type == "q":
+        print(color.CYAN+color.BOLD +"Caricamento consigliati in corso..."+ color.END)
     navigate_to_soup('https://www.ibs.it/libri-consigliati-da-leggere')
     # Search in the html
     main = soup.find(
@@ -45,8 +50,8 @@ def consigliati_scraper():
     book_dict = {}
     index = 1
     print("\n")
-    print(color.BOLD + "Ecco qui i libri consigliati della settimana:"
-          + color.END)
+    if builtins.args.type == "v":
+        print(color.BOLD +"Ecco qui:"+ color.END)
     for section in sections:
         book_name = section.find("h5", {"class": "subtitle"}).text.strip()
         author_container = section.find("div", {"class": "box-title-prd"})
@@ -63,9 +68,10 @@ def consigliati_scraper():
     builtins.book_dict = book_dict
     # Whitelist correct inputs
     while True:
-        print(color.BOLD
-              + "Di quale libro vuoi avere più informazioni? (Inserire numero)"
-              + color.END)
+        if builtins.args.type == "v":
+            print(color.BOLD +"Di quale libro vuoi avere più informazioni? (Inserire numero)"+ color.END)
+        if builtins.args.type == "q":
+            print(color.BOLD +"Inserire numero libro:"+ color.END)
         scelta = input()
         try:
             scelta = int(scelta)
@@ -74,23 +80,26 @@ def consigliati_scraper():
                 break
             else:
                 print("\n")
-                print(color.BOLD + color.RED +
-                      "Hai inserito un valore errato, prova di nuovo!"
-                      + color.END)
+                if builtins.args.type == "v":
+                    print(color.BOLD + color.RED+"Hai inserito un valore errato, prova di nuovo!"+color.END)
+                if builtins.args.type == "q":
+                    print(color.BOLD + color.RED+"Prova di nuovo!"+color.END)        except ValueError:
         except ValueError:
             print("\n")
-            print(color.BOLD + color.RED +
-                  "Hai inserito un valore errato, prova di nuovo!"+color.END)
-    libro_scelto = book_dict.get(scelta, None)
+            if builtins.args.type == "v":
+                    print(color.BOLD + color.RED+"Hai inserito un valore errato, prova di nuovo!"+color.END)
+            if builtins.args.type == "q":
+                print(color.BOLD + color.RED+"Prova di nuovo!"+color.END)
+    libro_scelto = book_dict.get(scelta,None)
     autore_libro_scelto = libro_scelto[0]
     nome_libro_scelto = libro_scelto[1]
     link_libro_scelto = libro_scelto[3]
     plot_libro_scelto = libro_scelto[2]
     print("\n")
-    print("Hai scelto: " + (color.PURPLE + color.BOLD + '"'
-          + color.END) + (color.PURPLE + color.BOLD + "%s"
-          + color.END) % (nome_libro_scelto)+(color.PURPLE
-          + color.BOLD + '"' + color.END))
+    if builtins.args.type == "v":
+        print("Hai scelto: " +(color.PURPLE + color.BOLD +'"'+ color.END)+(color.PURPLE + color.BOLD +"%s"+ color.END) % (nome_libro_scelto)+(color.PURPLE + color.BOLD +'"'+ color.END) )
+    if builtins.args.type == "q":
+        print((color.PURPLE + color.BOLD +"%s"+ color.END) % (nome_libro_scelto))
     navigate_to_soup(link_libro_scelto)
 
     price = soup.find(
@@ -101,9 +110,13 @@ def consigliati_scraper():
     try:
         about_the_author = wikipedia.summary(autore_libro_scelto, sentences=1)
     except:
-        about_the_author = "Non sono presenti info su questo autore :("
+        if builtins.args.type == "v":
+            about_the_author = "Non sono presenti info su questo autore :("
+        if builtins.args.type == "q":
+            about_the_author = "No info"
     print("\n")
-    print(color.BOLD + "Ecco maggiori info:" + color.END)
+    if builtins.args.type == "v":
+        print(color.BOLD +"Ecco maggiori info:"+ color.END)
     print("\n")
     print((color.DARKCYAN+color.BOLD + "AUTORE:  " +
            color.END)+autore_libro_scelto.upper())
@@ -114,6 +127,7 @@ def consigliati_scraper():
     print((color.DARKCYAN+color.BOLD + "TRAMA:  "+color.END)+plot_libro_scelto)
     time.sleep(3)
     print("\n")
+    (builtins.browser).quit()
 
 
 def classifica_scraper():
@@ -122,26 +136,27 @@ def classifica_scraper():
     """
     global book_dict
     global scelta
+    if builtins.args.type == "v":
+        print(color.CYAN+color.BOLD +
+              "Sto caricando i libri in classifica questa settimana..."+
+              color.END)
+        print(color.BOLD+color.YELLOW+"Potrebbero volerci alcuni minuti in base alla tua connessione internet"+color.END)
+    if builtins.args.type == "q":
+        print(color.CYAN+color.BOLD +"Caricamento classifica in corso..."+ color.END)
 
-    navigate_to_soup(
-        'https://www.ibs.it/classifica/libri/1week/sold?defaultPage=1')
-    # Search in the HTML
-    main = soup.find(
-        "div",
-        {"class": "col-lg-25 col-md-25 col-sm-25 col-xs-25 gridContainer"})
-    sections = main.findAll(
-        "li", {"class": "col-lg-5 col-md-5 col-sm-25 col-xs-25"})
     try:
-        if book_dict != {}:
-            for i in book_dict:
-                print(str(i)+". "+((book_dict[i])[1]) +
-                      "  ("+((book_dict[i])[0])+")")
-    except NameError:
+        if builtins.book_dict != {}:
+            for i in builtins.book_dict:
+                print(str(i)+". "+((builtins.book_dict[i])[1])+"  ("+((builtins.book_dict[i])[0])+")")
+    except NameError and AttributeError:
+        navigate_to_soup('https://www.ibs.it/classifica/libri/1week/sold?defaultPage=1')
+        main = soup.find("div",{"class":"col-lg-25 col-md-25 col-sm-25 col-xs-25 gridContainer"})
+        sections = main.findAll("li",{"class":"col-lg-5 col-md-5 col-sm-25 col-xs-25"})
         book_dict = {}
         index = 1
         print("\n")
-        print(color.BOLD +
-              "Ecco qui i libri in classifica questa settimana:" + color.END)
+        if builtins.args.type == "v":
+            print(color.BOLD +"Ecco qui:"+ color.END)
         for section in sections:
             book_link_container = section.find(
                 "div", {"class": "rankProductTitle"}).text.strip()
@@ -169,53 +184,58 @@ def classifica_scraper():
             print(str(index)+". "+book_name+"  ("+author+")")
             index += 1
         builtins.book_dict = book_dict
-
-        print("\n")
-        # Whitelist correct inputs
-        while True:
-            print(
-                color.BOLD +
-                "Di quale libro vuoi avere più informazioni? (Inserire numero)"
-                + color.END)
-            scelta = input()
-            try:
-                scelta = int(scelta)
-                if isinstance(scelta, int) is True and scelta in range(1, index):
-                    builtins.scelta = scelta
-                    break
-                else:
-                    print("\n")
-                    print(color.BOLD + color.RED +
-                          "Hai inserito un valore errato, prova di nuovo!"
-                          + color.END)
-            except ValueError:
-                print("\n")
-                print(color.BOLD + color.RED +
-                      "Hai inserito un valore errato, prova di nuovo!"
-                      + color.END)
-        libro_scelto = book_dict.get(scelta, None)
-        libro_scelto = book_dict.get(scelta, None)
-        autore_libro_scelto = libro_scelto[0]
-        nome_libro_scelto = libro_scelto[1]
-        link_libro_scelto = libro_scelto[3]
-        plot_libro_scelto = libro_scelto[2]
-        price_libro_scelto = libro_scelto[4]
-        builtins.price = price_libro_scelto
-        print("\n")
-        print("Hai scelto: " + (color.PURPLE +
-              color.BOLD + '"' + color.END)+(color.PURPLE + color.BOLD +
-              "%s" + color.END) % (nome_libro_scelto) + (color.PURPLE
-              + color.BOLD + '"' + color.END))
-
-        # Use the Wikipedia API to get more info about the author
-        wikipedia.set_lang("it")
+        builtins.index = index
+    print("\n")
+    # Whitelist correct inputs
+    while True:
+        if builtins.args.type == "v":
+            print(color.BOLD +"Di quale libro vuoi avere più informazioni? (Inserire numero)"+ color.END)
+        if builtins.args.type == "q":
+            print(color.BOLD +"Inserire numero libro:"+ color.END)
+        scelta = input()
         try:
-            about_the_author = wikipedia.summary(
-                autore_libro_scelto, sentences=1)
-        except:
+            scelta = int(scelta)
+            if isinstance(scelta, int) is True and scelta in range(1, builtins.index):
+                builtins.scelta = scelta
+                break
+            else:
+                print("\n")
+                if builtins.args.type == "v":
+                    print(color.BOLD + color.RED+"Hai inserito un valore errato, prova di nuovo!"+color.END)
+                if builtins.args.type == "q":
+                    print(color.BOLD + color.RED+"Prova di nuovo!"+color.END)
+        except ValueError:
+            print("\n")
+            if builtins.args.type == "v":
+                    print(color.BOLD + color.RED+"Hai inserito un valore errato, prova di nuovo!"+color.END)
+            if builtins.args.type == "q":
+                print(color.BOLD + color.RED+"Prova di nuovo!"+color.END)
+    libro_scelto = book_dict.get(scelta, None)
+    libro_scelto = book_dict.get(scelta, None)
+    autore_libro_scelto = libro_scelto[0]
+    nome_libro_scelto = libro_scelto[1]
+    link_libro_scelto = libro_scelto[3]
+    plot_libro_scelto = libro_scelto[2]
+    price_libro_scelto = libro_scelto[4]
+    builtins.price = price_libro_scelto
+    print("\n")
+    if builtins.args.type == "v":
+        print("Hai scelto: " +(color.PURPLE + color.BOLD +'"'+ color.END)+(color.PURPLE + color.BOLD +"%s"+ color.END) % (nome_libro_scelto)+(color.PURPLE + color.BOLD +'"'+ color.END) )
+    if builtins.args.type == "q":
+        print((color.PURPLE + color.BOLD +"%s"+ color.END) % (nome_libro_scelto))
+
+    # Use the Wikipedia API to get more info about the author
+    wikipedia.set_lang("it")
+    try:
+        about_the_author = wikipedia.summary(autore_libro_scelto, sentences=1)
+    except:
+        if builtins.args.type == "v":
             about_the_author = "Non sono presenti info su questo autore :("
-        print("\n")
-        print(color.BOLD + "Ecco maggiori info:" + color.END)
+        if builtins.args.type == "q":
+            about_the_author = "No info"
+    print("\n")
+    if builtins.args.type == "v":
+        print(color.BOLD +"Ecco maggiori info:"+ color.END)
         print("\n")
         print((color.DARKCYAN+color.BOLD + "AUTORE:  " +
                color.END)+autore_libro_scelto.upper())
@@ -228,7 +248,7 @@ def classifica_scraper():
                "TRAMA:  " + color.END) + plot_libro_scelto)
         time.sleep(3)
         print("\n")
-
+    (builtins.browser).quit()
 
 def recursive():
     """Returns a numeric status that defines
@@ -237,6 +257,7 @@ def recursive():
     global y
     y = 1
     while True:
+        print("\n")
         print(color.BOLD+"Vuoi avere info su altri libri? [si/no]"+color.END)
         scelta = str(input())
         if scelta in ["sì", "si", "Si", "SI"]:

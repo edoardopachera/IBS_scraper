@@ -23,7 +23,7 @@ class color:
 def modules(module_list):
     """Try to import needed modules.
 
-       If module is not installed, it installs it.
+       If module is not installed, this function installs it.
     """
     status = 0
     builtins.status = 0
@@ -38,12 +38,14 @@ def modules(module_list):
                       ("Il modulo %s non è presente nella tua libreria. Vuoi installarlo? [si/no]"
                        % (i))+color.END)
                 scelta = str(input())
+                # If input is positive, install package
                 if scelta in ["sì", "si", "Si", "SI"]:
                     subprocess.check_call([sys.executable,
                                            "-m", "pip", "install", i])
                     status = 0
                     builtins.status = 0
                     break
+                # If input is negative, don't install package
                 if scelta in ["no", "No", "NO"]:
                     status = 1
                     builtins.status = 1
@@ -55,8 +57,39 @@ def modules(module_list):
                           color.END)
         if status == 1:
             break
+    # If the user refuses to download a package, the program stops
     if status == 1:
         print("\n")
         print(color.RED+color.BOLD +
               "Non riesco ad avviare il programma senza i pacchetti mancanti :(" +
               color.END)
+
+
+def numpy_bug(package):
+    """Correction of a Windows bug of numpy 1.19.4.
+
+       Installs previous unbugged version (1.19.3).
+    """
+    for i in package:
+        subprocess.check_call([sys.executable,
+                              "-m", "pip", "install", "numpy==1.19.3"])
+
+
+def check_install():
+    """Modules download for different OS."""
+    plt = platform.system()
+    if plt == "Darwin":
+        module_l = ["selenium", "bs4", "pyfiglet",
+                    "argparse", "requests", "time",
+                    "wikipedia", "pandas"]
+    if plt == "Linux":
+        module_l = ["selenium", "bs4", "pyfiglet",
+                    "argparse", "requests", "time",
+                    "wikipedia", "pandas"]
+    if plt == "Windows":
+        numpy_bug(['numpy'])
+        module_l = ["selenium", "bs4", "pyfiglet",
+                    "argparse", "requests", "time",
+                    "wikipedia", "pandas", "win10toast"]
+
+    modules(module_l)

@@ -1,6 +1,6 @@
 # IBS scraper :book:
 
-This project is a website scraping terminal application. The target of the scraper is the IBS online bookstore (https://www.ibs.it/). 
+This project is a website scraping terminal application. The target of the scraper is the [IBS](https://www.ibs.it/) online bookstore. 
 The main features of the program are: 
 - A function that provides the user with a sorted list of book titles and corresponding authors from two sections of the website ('classifica della settimana' and 'consigliati').
 - A function that allows the user to choose a book from the list and receive more information about it (plot, information about the author using Wikipedia's API and the price). 
@@ -24,7 +24,7 @@ The main features of the program are:
    MANCA GIF
 3. Open the terminal and change your current directory into the downloaded repository.
   ```bash
-   cd /path/to/my/repo
+   $ cd /path/to/my/repo
    ```    
  
 ### Linux
@@ -41,13 +41,16 @@ Follow the same steps as described for MacOS.
 
 1. Run the script by choosing between two mandatory arguments:
 ```bash
-   python3 main.py consigliati
+   $ python3 main.py consigliati
    ```
 ```bash
-   python3 main.py classifica
+   $ python3 main.py classifica
    ```
-2. Copy the directory of Chromdriver binary file and paste it in the command line (add "/chromedriver" at the end of the directory - only if not present).
-MANCA GIF
+2. Copy the directory of Chromdriver binary file and paste it in the command line.
+
+For <b>Mac</b> add "/chromedriver" at the end of the directory.</br>
+For<b>Windows</b> remember to remove the quotes from the directory before pasting it.</br>
+
 3. The program checks if all the needed packages are installed in the computer. If some are missing, it will ask the user if to download them. 
 4. Now, the program is ready and it will start!
    
@@ -62,11 +65,11 @@ The  **`argparse`** module allows the user to choose different options, other th
 
 ## Team 
 
-- Edoardo Pachera
-- Evita Jasinskaite
-- Leonardo Venturini
-- Lorenzo Guetta
-- Catalina Damian
+- [Edoardo Pachera](https://github.com/edoardopachera) 
+- [Evita Jasinskaite](https://github.com/EvitaJasinskaite)
+- [Leonardo Venturini](https://github.com/LeoVenturini)
+- [Lorenzo Guetta](https://github.com/LGuetta)
+- [Catalina Damian](https://github.com/catalina-damian)
 
 ## License
 [MIT]

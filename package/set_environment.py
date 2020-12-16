@@ -118,5 +118,6 @@ def chrome_options():
     chrome_options.add_argument('--disable-dev-shm-usage')
     chrome_options.add_argument('--no-sandbox')
     chrome_options.add_argument('--ignore-certificate-errors')
+    chrome_options.add_argument("--log-level=3")
     browser = webdriver.Chrome(executable_path=CHROMEDRIVER_PATH,
                                options=chrome_options)

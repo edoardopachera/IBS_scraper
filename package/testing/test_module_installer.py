@@ -21,3 +21,8 @@ class TestInput(unittest.TestCase):
             mi.modules([module])
         except Exception:
             self.fail("È stato impossibile importare il modulo %s" % (module))
+
+    # invalid module name
+    def test_non_existing_package(self):
+        with self.assertRaises(Exception):
+            mi.modules(['qwertyuiop'])

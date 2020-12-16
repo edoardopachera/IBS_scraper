@@ -40,3 +40,60 @@ group.add_argument('-q', '--quiet', action='store_const', dest='type',
 parser.set_defaults(type='v')
 args = parser.parse_args()
 builtins.args = args
+
+
+# PROGRAM EXECUTION
+if __name__ == '__main__':
+    # Endless cycle, until function "recursive" stops it
+    while True:
+        # Check the installation of packages
+        mi.check_install()
+        # If the user refused to install a needed package
+        # stop the program
+        if builtins.status == 1:
+            break
+        if args.tipo_di_lista == "consigliati":
+            import package.set_environment as se
+            import package.scraper as sc
+            import package.book_saver as bs
+            se.opening_logo()
+            se.directory_checks()
+            while True:
+                se.chrome_options()
+                CHROMEDRIVER_PATH = se.CHROMEDRIVER_PATH
+                builtins.browser = se.browser
+                # Run the scraper
+                sc.consigliati_scraper()
+                book_dict = builtins.book_dict
+                scelta = builtins.scelta
+                price = builtins.price
+                bs.save_book(book_dict, scelta)
+                sc.recursive()
+                # If the user says "No" to "recursive" function
+                # stop the program
+                if builtins.y == 2:
+                    print("\n")
+                    break
+            break
+        elif args.tipo_di_lista == "classifica":
+            import package.set_environment as se
+            import package.scraper as sc
+            import package.book_saver as bs
+            se.opening_logo()
+            se.directory_checks()
+            while True:
+                se.chrome_options()
+                CHROMEDRIVER_PATH = se.CHROMEDRIVER_PATH
+                builtins.browser = se.browser
+                # Run the scraper
+                sc.classifica_scraper()
+                book_dict = builtins.book_dict
+                scelta = builtins.scelta
+                bs.save_book(book_dict, scelta)
+                sc.recursive()
+                # If the user says "No" to "recursive" function
+                # stop the program
+                if builtins.y == 2:
+                    print("\n")
+                    break
+            break

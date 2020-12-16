@@ -1,0 +1,1 @@
+# this file is used as intermediary to store variables globally between files

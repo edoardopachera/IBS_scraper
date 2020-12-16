@@ -1,6 +1,6 @@
 # IBS scraper :book:
 
-This project is a website scraping terminal application. The target of the scraper is the [IBS](https://www.ibs.it/) online bookstore. 
+This project is a website scraping terminal application. The target of the scraper is the <a href="https://www.ibs.it/" target="_blank">IBS</a> online bookstore. 
 The main features of the program are: 
 - A function that provides the user with a sorted list of book titles and corresponding authors from two sections of the website ('classifica della settimana' and 'consigliati').
 - A function that allows the user to choose a book from the list and receive more information about it (plot, information about the author using Wikipedia's API and the price). 
@@ -13,18 +13,19 @@ The main features of the program are:
 
 ## Installation 
 
-(GIF)
-
 ### MacOS
 
-1. Go to [ChromeDriver](https://chromedriver.chromium.org/downloads) &rarr; download ChromeDriver for your Chrome version &rarr; download ChromeDriver for your OS.
+<a href="https://imgbb.com/"><img src="https://i.ibb.co/nQxWkF1/Gif-Chromedriver.gif" alt="Gif-Chromedriver" border="0"></a> </br>
+Check your Chrome version
+
+1. Go to <a href="https://chromedriver.chromium.org/downloads" target="_blank">ChromeDriver</a> &rarr; download ChromeDriver for your Chrome version &rarr; download ChromeDriver for your OS.
    Move chromedriver inside the folder "chromedriver_settings".
-2. Download the repository of the project from [GitHub](https://github.com/edoardopachera/IBS_scraper.git).
+2. Download the repository of the project from <a href="https://github.com/edoardopachera/IBS_scraper.git" target="_blank">GitHub</a>
    Click on the green button <b>Code</b>, then <b>Download Zip</b>. Once downloaded, decompress the Zip file.  
    MANCA GIF
 3. Open the terminal and change your current directory into the downloaded repository.
   ```bash
-   $ cd /path/to/my/repo
+   cd /path/to/my/repo
    ```    
  
 ### Linux
@@ -40,11 +41,19 @@ Follow the same steps as described for MacOS.
 ## Run the program :keyboard:
 
 1. Run the script by choosing between two mandatory arguments:
-```bash
-   $ python3 main.py consigliati
+### MacOS
+  ```bash
+   python3 main.py consigliati
    ```
-```bash
-   $ python3 main.py classifica
+  ```bash
+   python3 main.py classifica
+   ```
+### Windows
+  ```bash
+   py main.py consigliati
+   ```
+  ```bash
+   py main.py classifica
    ```
 2. Copy the directory of Chromdriver binary file and paste it in the command line.
 

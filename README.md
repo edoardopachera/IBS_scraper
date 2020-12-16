@@ -19,15 +19,19 @@ The main features of the program are:
 Check your Chrome version
 
 1. Go to <a href="https://chromedriver.chromium.org/downloads" target="_blank">ChromeDriver</a> &rarr; download ChromeDriver for your Chrome version &rarr; download ChromeDriver for your OS.
-   Move chromedriver inside the folder "chromedriver_settings".
+
+<b>Only for MacOS</b>, when downloaded, the system imposes you a confirm to open the file for the first time.</br>
+Open Chromedriver with right-click &rarr; Apri. When chromedriver starts you can close the terminal window.</br>
+Move chromedriver where do you prefer (just remember the exact position for the directory).</br>
+
 2. Download the repository of the project from <a href="https://github.com/edoardopachera/IBS_scraper.git" target="_blank">GitHub</a>
-   Click on the green button <b>Code</b>, then <b>Download Zip</b>. Once downloaded, decompress the Zip file.  
-   MANCA GIF
-3. Open the terminal and change your current directory into the downloaded repository.
-  ```bash
-   cd /path/to/my/repo
-   ```    
- 
+
+Click on the green button <b>Code</b>, then <b>Download Zip</b>. 
+   
+Once downloaded, decompress the Zip file and move the folder where you prefer. 
+
+3. Open a new terminal with right click on the folder of the downloaded repository.
+   
 ### Linux
 
 Follow the same steps above described. 
@@ -36,28 +40,39 @@ Follow the same steps above described.
 
 Follow the same steps as described for MacOS.
 
-<b>NOTE</b>: if the program stops beacuse of an error that returns "non-zero exit status 2", restart the program and it will work. 
+<b>NOTE</b>: if the program stops because of an error that returns "non-zero exit status 2", restart the program and it will work. 
 
+For the POINT 3 you have to
+
+ ```bash
+   cd /path/to/my/repo
+   ```    
+   
 ## Run the program :keyboard:
 
 1. Run the script by choosing between two mandatory arguments:
-### MacOS
+
+For MacOS and Linux
   ```bash
    python3 main.py consigliati
    ```
   ```bash
    python3 main.py classifica
    ```
-### Windows
+
+For Windows
   ```bash
    py main.py consigliati
    ```
   ```bash
    py main.py classifica
    ```
-2. Copy the directory of Chromdriver binary file and paste it in the command line.
+2. When asked to paste the chromedriver file directory &rarr; copy the directory of Chromdriver binary file and paste it in the command line.
 
-For <b>Mac</b> add "/chromedriver" at the end of the directory.</br>
+<b>MacOS:</b> You can do this by clicking <b>&#8984; + I</b> on the chromedriver and copying the directory situated in 'Where'.</br>
+Add "/chromedriver" at the end of the directory
+
+<b>Windows:</b>
 For<b>Windows</b> remember to remove the quotes from the directory before pasting it.</br>
 
 3. The program checks if all the needed packages are installed in the computer. If some are missing, it will ask the user if to download them. 

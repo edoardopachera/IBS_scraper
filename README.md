@@ -14,23 +14,23 @@ The main features of the program are:
 ## Installation 
 
 ### MacOS
+1. Check your Chrome version
 
 <a href="https://imgbb.com/"><img src="https://i.ibb.co/nQxWkF1/Gif-Chromedriver.gif" alt="Gif-Chromedriver" border="0"></a> </br>
-Check your Chrome version
 
-1. Go to <a href="https://chromedriver.chromium.org/downloads" target="_blank">ChromeDriver</a> &rarr; download ChromeDriver for your Chrome version &rarr; download ChromeDriver for your OS.
+2. Go to <a href="https://chromedriver.chromium.org/downloads" target="_blank">ChromeDriver</a> &rarr; download ChromeDriver for your Chrome version &rarr; download ChromeDriver for your OS.
 
 <b>Only for MacOS</b>, when downloaded, the system imposes you a confirm to open the file for the first time.</br>
 Open Chromedriver with right-click &rarr; Apri. When chromedriver starts you can close the terminal window.</br>
 Move chromedriver where do you prefer (just remember the exact position for the directory).</br>
 
-2. Download the repository of the project from <a href="https://github.com/edoardopachera/IBS_scraper.git" target="_blank">GitHub</a>
+3. Download the repository of the project from <a href="https://github.com/edoardopachera/IBS_scraper.git" target="_blank">GitHub</a>
 
 Click on the green button <b>Code</b>, then <b>Download Zip</b>. 
    
 Once downloaded, decompress the Zip file and move the folder where you prefer. 
 
-3. Open a new terminal with right click on the folder of the downloaded repository.
+4. Open a new terminal with right click on the folder of the downloaded repository.
    
 ### Linux
 
@@ -38,11 +38,10 @@ Follow the same steps above described.
 
 ### Windows
 
-Follow the same steps as described for MacOS.
+Follow the same steps as described for MacOS until step 3 included.
 
-<b>NOTE</b>: if the program stops because of an error that returns "non-zero exit status 2", restart the program and it will work. 
-
-For the POINT 3 you have to
+For the step 4 you have to change the current directory to directory of the repository. </br>
+Search for the terminal in your computer and open it. Then use the command shown below, changing <em>/path/to/my/repo</em> with the path of the repository.
 
  ```bash
    cd /path/to/my/repo
@@ -67,15 +66,17 @@ For Windows
   ```bash
    py main.py classifica
    ```
+<b>NOTE</b>: if the program stops because of an error that returns "non-zero exit status 2", restart the program and it will work. </br>
+
 2. When asked to paste the chromedriver file directory &rarr; copy the directory of Chromdriver binary file and paste it in the command line.
 
 <b>MacOS:</b> You can do this by clicking <b>&#8984; + I</b> on the chromedriver and copying the directory situated in 'Where'.</br>
 Add "/chromedriver" at the end of the directory
 
 <b>Windows:</b>
-For<b>Windows</b> remember to remove the quotes from the directory before pasting it.</br>
+For <b>Windows</b> remember to remove the quotes from the directory before pasting it.</br>
 
-3. The program checks if all the needed packages are installed in the computer. If some are missing, it will ask the user if to download them. 
+3. The program checks if all the needed packages are installed in the computer. If some are missing, it will download them. 
 4. Now, the program is ready and it will start!
    
 ## Menu parameters :clipboard:
